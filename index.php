@@ -63,7 +63,7 @@ Limit 25
 ?>
 <script type="text/javascript">
 $(function () {
-    // Set up the chart
+     // Set up the chart
     var chart = new Highcharts.Chart({
         chart: {
             renderTo: 'overall',
@@ -75,7 +75,6 @@ $(function () {
                 depth: 50,
                 viewDistance: 25
             },
-
         }, plotOptions: {
             xAxis: {
                 colorByPoint: true
@@ -88,36 +87,36 @@ $(function () {
         subtitle: {
             text: 'Grafik ini menjelaskan jumlah posting dan hot issue per kategori '
         },
-		xAxis: {
+        xAxis: {
                         categories: [
-						<?php
+                        <?php
         foreach ($result as $row) {
-                                echo "'".str_replace('http://localhost/vayvis/ns/gov/','',$row->KATEGORI)."',";
+                                echo "'".str_replace('','',$row->KATEGORI)."',";
                             }?>
-						
-						]
+                        
+                        ]
                     },
         plotOptions: {
             column: {
                 depth: 25
             }
         },
-        series: [{name:'Total Tweets',
+        series: [{name:'Total Posting',
             data: [<?php
-        foreach ($result as $row) {
-            
-                                echo "{name:'Hot Topic : ".str_replace('http://localhost/vayvis/ns/gov/','',$row->HOTTEST)."',";
-                    
-            echo "y:".str_replace(',','.',$row->JUMLAH).',},';
-        }
-        ?>
+            $color = array('#dc9356', '#90FF33', '#FFF333', '#00AEFF', '#FFAA00', '#ea6459', '#00FF9E');
+            $i=0;
+            foreach ($result as $row) {
+                echo "{name:'Hot Topic : ".str_replace('','',$row->HOTTEST)."',";
+                echo "y:".str_replace(',','.',$row->JUMLAH).',';
+                echo "color:'".$color[$i]."'},";
+                $i++;
+            }?>
+            ],
 
-]
         }]
     }
 
     );
-
 
     function showValues() {
         $('#alpha-value').html(chart.options.chart.options3d.alpha);
